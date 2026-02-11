@@ -14,18 +14,19 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.example.santiagovazquez.navegation.GestorNavegacion
 import com.example.santiagovazquez.ui.theme.SantiagoVazquezTheme
 import com.example.santiagovazquez.view.PantallaLogin
+import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.auth
 
 class MainActivity : ComponentActivity() {
+    private lateinit var auth: FirebaseAuth
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        auth = Firebase.auth
         enableEdgeToEdge()
         setContent {
             SantiagoVazquezTheme {
-                Scaffold {
-                    paddingValues ->
-                    PantallaLogin(auth = FirebaseAuth.getInstance(),modifier = Modifier.padding(paddingValues))
-                }
+                GestorNavegacion(auth)
             }
         }
     }
