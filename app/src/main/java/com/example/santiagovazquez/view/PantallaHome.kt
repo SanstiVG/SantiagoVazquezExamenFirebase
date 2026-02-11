@@ -2,7 +2,9 @@ package com.example.santiagovazquez.view
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
@@ -17,6 +19,7 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -44,6 +47,7 @@ fun PantallaHome(viewModel: ClubViewModel = viewModel(), navegaNuevoJugador: () 
         ) {
             Text("Plantilla temporada 25/26", fontWeight = FontWeight.Bold,
                 fontSize = 24.sp)
+            Spacer(modifier = Modifier.height(16.dp))
             LazyColumn {
                 items(uiState) {
                     jugador ->
@@ -52,11 +56,12 @@ fun PantallaHome(viewModel: ClubViewModel = viewModel(), navegaNuevoJugador: () 
                     })
                 }
             }
+            Spacer(modifier = Modifier.height(16.dp))
 
             Button(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier.fillMaxWidth().padding(8.dp),
                 onClick = { navegaNuevoJugador()}
-            ) {
+            ){
                 Text("Agregar Jugador")
             }
         }
@@ -72,14 +77,17 @@ fun JugadorItem(jugador: ClubUiState, onBorrar: () -> Unit) {
         shape = RoundedCornerShape(12.dp),
         elevation = CardDefaults.cardElevation(6.dp),
         colors = CardDefaults.cardColors(
-            containerColor = Color.White
+            Color(0xFFF2FCEE)
         )
     ) {
-        Column {
+        Column (
+            modifier = Modifier.fillMaxWidth().padding(8.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
             AsyncImage(
                 model = jugador.imagen,
                 contentDescription = "",
-                modifier = Modifier.size(64.dp)
+                modifier = Modifier.size(128.dp)
             )
             Row(
                 modifier = Modifier
@@ -87,27 +95,27 @@ fun JugadorItem(jugador: ClubUiState, onBorrar: () -> Unit) {
                     .padding(12.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Button(onClick = {} ) {
+                Button(onClick = {}, modifier = Modifier.padding(end = 4.dp)) {
                     Text(jugador.numero.toString())
                 }
-                Column(
-
-                ) {
+                Spacer(modifier = Modifier.weight(1f))
+                Column() {
                     Text(
                         text = jugador.nombre,
                         fontWeight = FontWeight.Bold,
-                        fontSize = 18.sp
+                        fontSize = 14.sp
                     )
                     Text(
                         text = jugador.nacionalidad,
-                        fontSize = 14.sp
+                        fontSize = 12.sp
                     )
                     Text(
                         text = jugador.posicion,
-                        fontSize = 14.sp
+                        fontSize = 12.sp
                     )
                 }
-                IconButton(onClick = onBorrar) {
+                Spacer(modifier = Modifier.weight(1f))
+                IconButton(onClick = onBorrar, modifier = Modifier.padding(start = 4.dp)) {
                     Icon(
                         imageVector = Icons.Default.Delete,
                         contentDescription = "",

@@ -2,8 +2,10 @@ package com.example.santiagovazquez.view
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.OutlinedTextField
@@ -35,8 +37,7 @@ fun PantallaNuevoJugador(viewModel: ClubViewModel = viewModel(),navegaAtras: () 
     Scaffold {
         paddingValues ->
         Column(
-            modifier = Modifier.padding(paddingValues),
-            horizontalAlignment = Alignment.CenterHorizontally
+            modifier = Modifier.padding(paddingValues)
         ) {
             Text("Nuevo Jugador",fontWeight = FontWeight.Bold,
                 fontSize = 24.sp)
@@ -83,19 +84,28 @@ fun PantallaNuevoJugador(viewModel: ClubViewModel = viewModel(),navegaAtras: () 
             OutlinedTextField(
                 value = imagen,
                 onValueChange = { imagen = it },
-                label = { Text(text = "URL imágen") },
+                label = { Text(text = "URL imagen") },
                 keyboardOptions = KeyboardOptions(
                     keyboardType = KeyboardType.Text
                 ),
                 modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 4.dp),
             )
 
-            Row {
+            Row(modifier = Modifier.padding(16.dp)) {
                 Button(
                     onClick = {
+                        viewModel.addJugador(nombre, numero.toInt(), nacionalidad, posicion, imagen)
+                        navegaAtras()
+                    }
 
-                    } ) {
-
+                ) {
+                    Text("Agragar Jugador")
+                }
+                Spacer(modifier = Modifier.width(16.dp))
+                Button(
+                    onClick = {navegaAtras()}
+                ) {
+                    Text("Cancelar")
                 }
             }
         }
