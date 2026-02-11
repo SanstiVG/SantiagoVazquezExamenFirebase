@@ -1,8 +1,22 @@
 package com.example.santiagovazquez.view
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material.icons.filled.Search
+import androidx.compose.material3.Button
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -10,10 +24,17 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import coil3.compose.AsyncImage
+import com.example.santiagovazquez.viewmodel.ClubUiState
+import com.example.santiagovazquez.viewmodel.ClubViewModel
 
 @Composable
-fun PantallaHome(navegaNuevoJugador: () -> Unit) {
+fun PantallaHome(viewModel: ClubViewModel = viewModel(), navegaNuevoJugador: () -> Unit) {
     val uiState by viewModel.uiState.collectAsState()
     Scaffold {
         paddingValues ->
@@ -21,12 +42,81 @@ fun PantallaHome(navegaNuevoJugador: () -> Unit) {
             modifier = Modifier.padding(paddingValues),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text("Plantilla temporada 25/26")
+            Text("Plantilla temporada 25/26", fontWeight = FontWeight.Bold,
+                fontSize = 24.sp)
             LazyColumn {
-                items()
+                items(uiState) {
+                    jugador ->
+                    JugadorItem(jugador = jugador, onBorrar = {
+                        viewModel.deleteJugador(jugador.id)
+                    })
+                }
+            }
+
+            Button(
+                modifier = Modifier.fillMaxWidth(),
+                onClick = { navegaNuevoJugador()}
+            ) {
+                Text("Agregar Jugador")
             }
         }
     }
 
+}
+@Composable
+fun JugadorItem(jugador: ClubUiState, onBorrar: () -> Unit) {
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp, vertical = 4.dp),
+        shape = RoundedCornerShape(12.dp),
+        elevation = CardDefaults.cardElevation(6.dp),
+        colors = CardDefaults.cardColors(
+            containerColor = Color.White
+        )
+    ) {
+        Column {
+            AsyncImage(
+                model = jugador.imagen,
+                contentDescription = "",
+                modifier = Modifier.size(64.dp)
+            )
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(12.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Button(onClick = {} ) {
+                    Text(jugador.numero.toString())
+                }
+                Column(
+
+                ) {
+                    Text(
+                        text = jugador.nombre,
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 18.sp
+                    )
+                    Text(
+                        text = jugador.nacionalidad,
+                        fontSize = 14.sp
+                    )
+                    Text(
+                        text = jugador.posicion,
+                        fontSize = 14.sp
+                    )
+                }
+                IconButton(onClick = onBorrar) {
+                    Icon(
+                        imageVector = Icons.Default.Delete,
+                        contentDescription = "",
+                        tint = Color.Red
+                    )
+                }
+            }
+        }
+
+    }
 }
 

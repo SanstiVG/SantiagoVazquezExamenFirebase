@@ -1,5 +1,6 @@
 package com.example.santiagovazquez.navegation
 
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation3.runtime.NavEntry
@@ -19,13 +20,18 @@ fun GestorNavegacion(auth: FirebaseAuth) {
         entryProvider = { key ->
             when (key) {
                 is Routes.Login -> NavEntry(key) {
-                    PantallaLogin(auth = auth, navegaHome = {
-                        pilaNavegacion.add(Routes.Home("id"))
-                    })
+                    PantallaLogin(
+                        auth = auth,
+                        navegaHome = {
+                            pilaNavegacion.add(Routes.Home)
+                        }
+                    )
                 }
                 is Routes.Home -> NavEntry(key) {
                     PantallaHome(
-                        navegaNuevoJugador = {pilaNavegacion.add(Routes.NuevoJugador("id"))}
+                        navegaNuevoJugador = {
+                            pilaNavegacion.add(Routes.NuevoJugador)
+                        },
                     )
                 }
                 is Routes.NuevoJugador -> NavEntry(key) {
@@ -34,8 +40,10 @@ fun GestorNavegacion(auth: FirebaseAuth) {
                     )
                 }
 
-                else -> null
-            }!!
+                else -> NavEntry(Routes.Error){
+                    Text("Error")
+                }
+            }
         }
     )
 }

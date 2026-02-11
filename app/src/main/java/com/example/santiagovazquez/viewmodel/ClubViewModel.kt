@@ -8,13 +8,26 @@ import kotlinx.coroutines.flow.StateFlow
 
 class ClubViewModel: ViewModel() {
     private val db = Firebase.firestore
-    private val clubcollection = db.collection("")
+    private val clubcollection = db.collection("clubcollection")
     private val _uiState = MutableStateFlow<List<ClubUiState>>(emptyList())
     val uiState: StateFlow<List<ClubUiState>> = _uiState
 
     init {
         getJugadores()
     }
+
+    fun addJugador(nombre:String, numero:Int, nacionalidad:String, posicion:String,imagen: String) {
+        val jugador = ClubUiState(nombre = nombre, numero = numero, nacionalidad = nacionalidad, posicion = posicion, imagen = imagen)
+        clubcollection.add(jugador)
+
+    }
+
+    fun deleteJugador(idJugador: String) {
+        clubcollection.document(idJugador).delete()
+    }
+
+
+
     private fun getJugadores() {
         clubcollection.addSnapshotListener { snapshot, error ->
             if (error != null) {

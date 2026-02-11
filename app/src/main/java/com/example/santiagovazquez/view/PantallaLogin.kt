@@ -28,7 +28,7 @@ import com.google.firebase.auth.FirebaseAuth
 
 //a@a.com 123456
 @Composable
-fun PantallaLogin(auth: FirebaseAuth, navegaHome: () -> Unit) {
+fun PantallaLogin(auth: FirebaseAuth, navegaHome:() -> Unit) {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var alerta by remember { mutableStateOf(false) }
@@ -56,7 +56,7 @@ fun PantallaLogin(auth: FirebaseAuth, navegaHome: () -> Unit) {
             Image(
                 painter = painterResource(id = R.drawable.logo),
                 contentDescription = "",
-                Modifier.size(64.dp)
+                Modifier.size(256.dp)
             )
             Text(text = "Inicia sesión")
             OutlinedTextField(
@@ -67,7 +67,8 @@ fun PantallaLogin(auth: FirebaseAuth, navegaHome: () -> Unit) {
                     keyboardType = KeyboardType.Email
                 ),
                 singleLine = true,
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 4.dp),
+
             )
 
             OutlinedTextField(
@@ -78,7 +79,7 @@ fun PantallaLogin(auth: FirebaseAuth, navegaHome: () -> Unit) {
                     keyboardType = KeyboardType.Password
                 ),
                 singleLine = true,
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 4.dp)
 
             )
 
@@ -93,7 +94,7 @@ fun PantallaLogin(auth: FirebaseAuth, navegaHome: () -> Unit) {
                             Log.e("Login", "Error al iniciar sesión", it)
                         }
                 },
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 4.dp)
             ) {
                 Text(text = "Login")
 
