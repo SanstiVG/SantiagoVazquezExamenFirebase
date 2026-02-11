@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "397138237800",
+    "project_id": "santiagovazquezexamenfirebase",
+    "storage_bucket": "santiagovazquezexamenfirebase.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:397138237800:android:b809f5e56c3c526cbe5edd",
+        "android_client_info": {
+          "package_name": "com.example.santiagovazquez"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB_MDHgTwVnAVi0t-P_ZMuZftn5SiTQ6tI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

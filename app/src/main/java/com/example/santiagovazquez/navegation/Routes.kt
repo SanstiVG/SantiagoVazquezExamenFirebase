@@ -2,6 +2,7 @@ package com.example.santiagovazquez.navegation
 
 import androidx.navigation3.runtime.NavKey
 
+@Seria
 sealed class Routes: NavKey {
     @Serializable
     data object Login: Routes()
