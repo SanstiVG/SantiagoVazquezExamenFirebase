@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -19,6 +20,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
@@ -28,7 +30,6 @@ import com.example.santiagovazquez.viewmodel.ClubViewModel
 
 @Composable
 fun PantallaNuevoJugador(viewModel: ClubViewModel = viewModel(),navegaAtras: () -> Unit) {
-    val uiState by viewModel.uiState.collectAsState()
     var nombre by remember { mutableStateOf("") }
     var numero by remember { mutableStateOf("") }
     var posicion by remember { mutableStateOf("") }
@@ -40,7 +41,7 @@ fun PantallaNuevoJugador(viewModel: ClubViewModel = viewModel(),navegaAtras: () 
             modifier = Modifier.padding(paddingValues)
         ) {
             Text("Nuevo Jugador",fontWeight = FontWeight.Bold,
-                fontSize = 24.sp)
+                fontSize = 24.sp, modifier = Modifier.padding(16.dp))
             OutlinedTextField(
                 value = nombre,
                 onValueChange = { nombre = it },
@@ -96,14 +97,20 @@ fun PantallaNuevoJugador(viewModel: ClubViewModel = viewModel(),navegaAtras: () 
                     onClick = {
                         viewModel.addJugador(nombre, numero.toInt(), nacionalidad, posicion, imagen)
                         navegaAtras()
-                    }
+                    },
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = Color(0xFF27D21F)
+                    )
 
                 ) {
                     Text("Agragar Jugador")
                 }
                 Spacer(modifier = Modifier.width(16.dp))
                 Button(
-                    onClick = {navegaAtras()}
+                    onClick = {navegaAtras()},
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = Color(0xFF27D21F)
+                    )
                 ) {
                     Text("Cancelar")
                 }

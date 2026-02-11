@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -21,6 +22,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
@@ -29,7 +31,6 @@ import androidx.compose.ui.unit.sp
 import com.example.santiagovazquez.R
 import com.google.firebase.auth.FirebaseAuth
 
-//a@a.com 123456
 @Composable
 fun PantallaLogin(auth: FirebaseAuth, navegaHome:() -> Unit) {
     var email by remember { mutableStateOf("") }
@@ -97,6 +98,9 @@ fun PantallaLogin(auth: FirebaseAuth, navegaHome:() -> Unit) {
                             Log.e("Login", "Error al iniciar sesión", it)
                         }
                 },
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = Color(0xFF27D21F)
+                ),
                 modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 4.dp),
 
             ) {

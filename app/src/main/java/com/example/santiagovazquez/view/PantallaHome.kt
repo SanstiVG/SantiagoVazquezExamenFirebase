@@ -3,6 +3,7 @@ package com.example.santiagovazquez.view
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -15,6 +16,7 @@ import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
@@ -54,16 +56,22 @@ fun PantallaHome(viewModel: ClubViewModel = viewModel(), navegaNuevoJugador: () 
                     JugadorItem(jugador = jugador, onBorrar = {
                         viewModel.deleteJugador(jugador.id)
                     })
+
                 }
+
             }
             Spacer(modifier = Modifier.height(16.dp))
 
             Button(
                 modifier = Modifier.fillMaxWidth().padding(8.dp),
-                onClick = { navegaNuevoJugador()}
+                onClick = { navegaNuevoJugador()},
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = Color(0xFF27D21F)
+                )
             ){
                 Text("Agregar Jugador")
             }
+
         }
     }
 
@@ -95,7 +103,14 @@ fun JugadorItem(jugador: ClubUiState, onBorrar: () -> Unit) {
                     .padding(12.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Button(onClick = {}, modifier = Modifier.padding(end = 4.dp)) {
+                Button(
+                    onClick = {},
+                    modifier = Modifier.padding(end = 4.dp),
+                    shape = RoundedCornerShape(34.dp),
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = Color(0xFF27D21F)
+                    )
+                ) {
                     Text(jugador.numero.toString())
                 }
                 Spacer(modifier = Modifier.weight(1f))
